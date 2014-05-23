@@ -22,7 +22,7 @@
             debugger
             this.setListeners(); // устанавливаем необходимые обработчики событий
             
-            
+            this.showThumbCountLabel();
             this.$slider.trigger('thumbSlider:ready', {count: this.count});
 
             //this.$element.trigger('thumbslider:loaded');
@@ -30,9 +30,9 @@
 
         /*thumbs*/
         showThumbCountLabel: function(){
-            var label = $(this.options.thumbCountLabel);
-            
+            var $label = $(this.options.thumbCountLabel);
 
+            $label.append('Images: ' + this.count);
         },
 
         setListeners: function(){
