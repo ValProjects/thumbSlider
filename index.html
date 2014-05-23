@@ -23,6 +23,15 @@
 <!-- JS -->
 <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="js/thumbSlider.js"></script>
+<script>
+	$(document).ready(function(){
+		$('.thumbSlider')
+		.on('thumbSlider:ready', function(e, slider){
+			console.log ('Количество изображений='+slider.count)
+		})
+		.thumbSlider();
+	})
+</script>
 
 
 <title>Fullscreen and Fixed width responsive mega slider</title>
@@ -30,6 +39,7 @@
 <body>
 	<div class="example__outer">
 		<div class="thumbSlider">
+			<div class="thumb__count-label"></div>
 			<a href="img/01.jpg">
 				<img src="img/01_t.jpg" alt="Image 1 for slider"  title="Image 1 for slider">
 			</a>

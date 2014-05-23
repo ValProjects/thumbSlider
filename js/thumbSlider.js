@@ -1,11 +1,14 @@
 ;(function ( $, window, document, undefined ) {
     var pluginName = 'thumbSlider',
         defaults = {
-            thumbPosition: "bottom" // 'top', 'bottom', 'left', 'right'
+            thumbPosition: 'bottom', // 'top', 'bottom', 'left', 'right'
+            thumbCountLabel: '.thumb__count-label', // a selector for labes such as "15 image from 20"
+            thumbCountLabelShow: true // true, false
         };
     // constructor
     function thumbSlider( element, options ) {
-        this.$element = $(element);
+        debugger
+        this.$slider = $(element);
         this.options = $.extend( {}, defaults, options) ;
         this._defaults = defaults;
         this._name = pluginName;
@@ -14,36 +17,22 @@
 
     thumbSlider.prototype =  {
         init: function(){
-            this.imageViewerContainer = $('#image-viewer');
-            this.thumbsList = $('.iv-thumbs');
-            this.thumbs = this.thumbsList.find('a');
-            $('.iv-thumbs').remove();
-            this.imageFirst = this.thumbs.first().attr('href');
-            this.thumbSlide = '';
-            this.thumbSlideCount = 0;
-            this.thumbSlideWidth = 256;
-            this.thumbWidth = 128;
-            this.thumbSlidesWidth = 0;
-            this.thumbSlideCurrent = 0;
-            this.thumbCurrent = 0;
-
-            this.popupMargin = 20;
-            this.verPopupPosition = 0;
-            this.horPopupPosition = 0;
-            this.popupTrigger = '';
-            this.overlayEl = '<div class="overlay"></div>';
-            this.body = $('body');
-            this.ratio = 0;   
-            this.imgWidth = 920;
-            this.imgHeight = 613;    
-            this.ratio = this.imgWidth / this.imgHeight;         
- 
-            this.setListeners(); // устанавливаем необходимые обработчики событий
-            //this.thumbsPrepareMarkup(); // подготавливаем разметку для работы
+            this.$thumbs = this.$slider.find('a');
+            this.count = this.$thumbs.length;
             debugger
-            this.$element.trigger('test', [100, 200]);
+            this.setListeners(); // устанавливаем необходимые обработчики событий
+            
+            
+            this.$slider.trigger('thumbSlider:ready', {count: this.count});
 
             //this.$element.trigger('thumbslider:loaded');
+        },
+
+        /*thumbs*/
+        showThumbCountLabel: function(){
+            var label = $(this.options.thumbCountLabel);
+            
+
         },
 
         setListeners: function(){
@@ -306,6 +295,7 @@
 
     $.fn[pluginName] = function ( options ) {
         return this.each(function () {
+            debugger
             if (!$.data(this, 'plugin_' + pluginName)) {
                 $.data(this, 'plugin_' + pluginName,
                 new thumbSlider( this, options ));
